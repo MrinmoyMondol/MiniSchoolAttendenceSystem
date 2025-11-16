@@ -5,7 +5,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Services\AttendanceService;
 use App\Http\Resources\AttendanceResource;
-use App\Models\Attendance;
+use App\Models\Attendence;
 use Carbon\Carbon;
 
 class AttendanceController extends Controller
@@ -51,7 +51,7 @@ class AttendanceController extends Controller
     public function todaysAttendance()
     {
         $today = now()->toDateString();
-        $attendances = Attendance::with('student')->where('date',$today)->get();
+        $attendances = Attendence::with('student')->where('date',$today)->get();
         return AttendanceResource::collection($attendances);
     }
 }

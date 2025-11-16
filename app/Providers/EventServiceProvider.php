@@ -21,4 +21,11 @@ class EventServiceProvider extends ServiceProvider
     {
         //
     }
+
+    protected $listen = [
+    \App\Events\AttendanceRecorded::class => [
+        \App\Listeners\SendAttendanceNotification::class,
+    ],
+];
+
 }

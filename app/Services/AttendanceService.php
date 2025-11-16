@@ -1,7 +1,7 @@
 <?php
 
 namespace App\Services;
-use App\Models\Attendance;
+use App\Models\Attendence;
 use App\Models\Student;
 use App\Events\AttendanceRecorded;
 use Illuminate\Support\Facades\DB;
@@ -28,7 +28,7 @@ class AttendanceService
 
         DB::transaction(function() use ($insertData) {
             // Upsert to handle update/insert duplicates
-            Attendance::upsert($insertData, ['student_id','date'], ['status','note','recorded_by','updated_at']);
+            Attendence::upsert($insertData, ['student_id','date'], ['status','note','recorded_by','updated_at']);
         });
 
         // emit event for summary / notifications
@@ -83,10 +83,10 @@ class AttendanceService
         $key = 'attendance:stats:'. now()->toDateString();
         return Cache::remember($key, 60, function() {
             $date = now()->toDateString();
-            $total = Attendance::where('date',$date)->count();
-            $present = Attendance::where('date',$date)->where('status','present')->count();
-            $absent = Attendance::where('date',$date)->where('status','absent')->count();
-            $late = Attendance::where('date',$date)->where('status','late')->count();
+            $total = Attendence::where('date',$date)->count();
+            $present = Attendence::where('date',$date)->where('status','present')->count();
+            $absent = Attendence::where('date',$date)->where('status','absent')->count();
+            $late = Attendence::where('date',$date)->where('status','late')->count();
             return compact('total','present','absent','late');
         });
     }

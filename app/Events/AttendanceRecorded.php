@@ -17,9 +17,10 @@ class AttendanceRecorded
     /**
      * Create a new event instance.
      */
-    public function __construct()
+    public $records;
+    public function __construct(array $records)
     {
-        //
+        $this->records = $records;
     }
 
     /**
